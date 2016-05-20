@@ -5,7 +5,8 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs'),
+    EmailService = require('../services/EmailService');
 
 module.exports = {
 
@@ -36,6 +37,8 @@ module.exports = {
   beforeCreate: function(user, cb){
 
     //todo: send email with password
+    EmailService.sendPasswordEmail(user.email, user.password);
+
 
     bcrypt.genSalt(10, function(err, salt){
       bcrypt.hash(user.password, salt, null, function(err, hash){

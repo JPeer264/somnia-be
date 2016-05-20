@@ -11,6 +11,11 @@
 
 module.exports.bootstrap = function(cb) {
 
+
+  //todo: configure real email service
+  sails.config.email.templateDir = sails.config.appPath+'/views/email/';
+
+
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();

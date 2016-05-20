@@ -1,7 +1,7 @@
 /**
  * User.js
  *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @description :: 
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
@@ -35,10 +35,8 @@ module.exports = {
   },
 
   beforeCreate: function(user, cb){
-
-    //todo: send email with password
+    
     EmailService.sendPasswordEmail(user.email, user.password);
-
 
     bcrypt.genSalt(10, function(err, salt){
       bcrypt.hash(user.password, salt, null, function(err, hash){

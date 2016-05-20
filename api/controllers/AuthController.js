@@ -31,6 +31,33 @@ module.exports = {
 
   login: function(req, res){
 
+    var pw    = req.param('password');
+    var email = req.param('email');
+
+    if(pw && email){
+      User.findOne({email: email})
+        .then(function(user){
+          if(!user){
+            return res.json(400,{msg:'email or password is not correct'});
+          }
+          else{
+            User.comparePassword(pw,user,function (err, match) {
+              if(err){
+                return res.negotiate(err);
+              }
+              else{
+                if(match){
+                  return res.json(200,{user: user, token: JWTService.issue({id: user.id})});
+                }
+                else {
+                  return res.json(400,{msg:'email or password is not correct'});
+                }
+              }
+            })
+          }
+        })
+    }
+
   }
 
 };

@@ -19,7 +19,10 @@ module.exports = {
 
     'password':{
       type: 'string',
-      required: true
+      required: true,
+      defaultsTo: function(){
+        return User.generatePassword();
+      }
     },
 
     toJSON: function(){
@@ -31,6 +34,9 @@ module.exports = {
   },
 
   beforeCreate: function(user, cb){
+
+    //todo: send email with password
+
     bcrypt.genSalt(10, function(err, salt){
       bcrypt.hash(user.password, salt, null, function(err, hash){
         if(err){
@@ -56,6 +62,19 @@ module.exports = {
         }
       }
     });
+  },
+
+  generatePassword: function(){
+
+    var size = 8;
+
+    var result = '';
+    var chars = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ!?#*+-.:;,";
+
+    for (var i = size; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+
+    return result;
+
   }
 
 };

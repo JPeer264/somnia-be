@@ -12,16 +12,27 @@ module.exports = {
         type: 'string',
         required: true
       },
-      dueDate:{
-        type: 'date',
-        required: true
-      },
-      finishedDate:{
-        type: 'date'
-      },
       milestone:{
         model: 'Milestone'
       }
+  },
+
+  checkOwnership: function (userId, stepId, cb) {
+
+    Step.findOne({id: stepId})
+      .then(function (step) {
+        if(!step) cb(null,false);
+        else{
+          Milestone.checkOwnership(userId, step.milestone, function (err, isOwner) {
+            if(err) cb(err,null);
+            else if(isOwner){
+              cb(null,true);
+            }else{
+              cb(null,false);
+            }
+          })
+        }
+      })
   }
 };
 

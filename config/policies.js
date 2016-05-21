@@ -39,6 +39,10 @@ module.exports.policies = {
 
   'MilestoneController': {
     'get': true
+  },
+
+  'StepController': {
+    'get': true
   }
 
   /***************************************************************************

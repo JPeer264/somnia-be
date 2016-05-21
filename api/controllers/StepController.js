@@ -6,35 +6,32 @@
  */
 
 module.exports = {
+
   create: function (req, res) {
     var title = req.param('title'),
-      dueDate = parseInt(req.param('dueDate')),
-      projectId = req.param('projectId'),
-      userId = req.token.id;
+        milestoneId = req.param('milestoneId'),
+        userId = req.token.id;
 
-    dueDate = sails.moment(dueDate).format('YYYY-MM-DD');
-
-    Project.checkOwnership(userId, projectId, function (err, isOwner) {
+    Milestone.checkOwnership(userId, milestoneId, function (err, isOwner) {
       if (err) {
         return res.negotiate(err);
       }
       if (!isOwner) {
-        return res.json(401, {err: 'You are not authorized to create milestones for this project!'})
+        return res.json(401, {err: 'You are not authorized to create steps for this milestone!'})
       } else {
-        if (title && dueDate) {
-          Milestone.create({
+        if (title) {
+          Step.create({
               title: title,
-              dueDate: dueDate,
-              project: projectId
+              milestone: milestoneId
             })
-            .then(function (milestone) {
-              return res.json(200, {milestone: milestone});
+            .then(function (step) {
+              return res.json(200, {step: step});
             })
             .fail(function (err) {
               return res.negotiate(err);
             });
         } else {
-          return res.json(400, {msg: 'Title and DueDate required!'});
+          return res.json(400, {msg: 'Title required!'});
         }
       }
     })
@@ -43,52 +40,46 @@ module.exports = {
   },
 
   update: function (req, res) {
-    var milestoneId = req.param('id'),
-      projectId   = req.param('projectId'),
-      userId      = req.token.id,
-      body        = req.allParams();
+    var stepId = req.param('id'),
+        userId = req.token.id,
+        body   = req.allParams();
 
-    if (body.dueDate) {
-      body.dueDate = sails.moment(parseInt(body.dueDate)).format('YYYY-MM-DD');
-    }
-
-    Project.checkOwnership(userId, projectId, function (err, isOwner) {
+    Step.checkOwnership(userId, stepId, function (err, isOwner) {
       if (err) return res.negotiate(err);
 
       if (isOwner) {
-        Milestone.update({id: milestoneId}, body)
-          .then(function (milestone) {
-            console.log(milestone);
-            return res.json(200, {milestone: milestone[0]});
+        Step.update({id: stepId}, body)
+          .then(function (step) {
+            console.log(step);
+            return res.json(200, {step: step[0]});
           })
           .fail(function (err) {
             return res.negotiate(err);
           });
       } else {
-        return res.json(401, {err: 'You are not authorized to update this milestone'});
+        return res.json(401, {err: 'You are not authorized to update this step'});
 
       }
     });
   },
 
   delete: function (req, res) {
-    var milestoneId = req.param('id'),
-      projectId   = req.param('projectId'),
-      userId = req.token.id;
+    var stepId = req.param('id'),
+        userId = req.token.id;
 
-    Project.checkOwnership(userId, projectId, function (err, isOwner) {
+    Step.checkOwnership(userId, stepId, function (err, isOwner) {
       if (err) return res.negotiate(err);
 
       if (isOwner) {
-        Milestone.destroy({id: milestoneId})
+        Step.destroy({id: stepId})
           .then(function () {
-            return res.json(200, {msg: 'Milestone successfully destroyed'});
+            return res.json(200, {msg: 'Step successfully destroyed'});
           })
           .fail(function (err) {
             return res.negotiate(err);
           });
       } else {
-        return res.json(401, {err: 'You are not authorized to update this milestone'});
+        return res.json(401, {err: 'You are not authorized to update this step'});
       }
     });
   },
@@ -96,11 +87,9 @@ module.exports = {
   get: function (req, res) {
     var id = req.param('id');
 
-    Milestone.findOne({id: id})
-      .then(function(milestone){
-        //todo: populate with steps
-        milestone.done = Milestone.milestoneDone(milestone);
-        return res.json(200, {milestone: milestone});
+    Step.findOne({id: id})
+      .then(function(step){
+        return res.json(200, {step: step});
       })
       .fail(function(err){
         return res.negotiate(err);

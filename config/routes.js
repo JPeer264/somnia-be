@@ -48,6 +48,12 @@ module.exports.routes = {
   'DELETE /api/milestone/:id'               : 'MilestoneController.delete',
   'GET /api/milestone/:id'                  : 'MilestoneController.get',
 
+  //Milestones
+  'POST /api/milestone/:milestoneId/step'   : 'StepController.create',
+  'PUT /api/step/:id'                       : 'StepController.update',
+  'DELETE /api/step/:id'                    : 'StepController.delete',
+  'GET /api/step/:id'                       : 'StepController.get',
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

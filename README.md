@@ -89,7 +89,8 @@ get project from id
     "dueDate": "2003-09-17T00:00:00.000Z",
     "createdAt": "2016-05-21T09:46:12.777Z",
     "updatedAt": "2016-05-21T09:46:19.179Z",
-    "id": "57402e644bb5f9e40d050837"
+    "id": "57402e644bb5f9e40d050837",
+    "done": true/false
   }
 }
 ```

@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing projects
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+var TimeFormatService = require('../services/TimeFormatService');
 
 module.exports = {
 
@@ -40,7 +40,10 @@ module.exports = {
         body      = req.body;
 
     if(body.dueDate){
-      body.dueDate = sails.moment(parseInt(body.dueDate)).format('YYYY-MM-DD');
+      body.dueDate = TimeFormatService.toDateString(body.dueDate);
+    }
+    if(body.finishedDate){
+      body.finishedDate = TimeFormatService.toDateString(body.finishedDate);
     }
 
     Project.checkOwnership(userId, projectId, function(err, isOwner){
@@ -91,7 +94,7 @@ module.exports = {
       .then(function(project){
         //todo: populate with milestones and steps
 
-
+        project.done = (project.finishedDate) ? true : false;
 
         return res.json(200, {project: project});
       })

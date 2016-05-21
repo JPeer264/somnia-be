@@ -19,7 +19,7 @@ module.exports = {
     finishedDate:{
       type: 'date'
     },
-    owner:{
+    project:{
       model: 'Project'
     }
   }

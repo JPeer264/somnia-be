@@ -26,7 +26,7 @@ module.exports = {
           Milestone.create({
               title: title,
               dueDate: dueDate,
-              owner: req.token.id
+              project: projectId
             })
             .then(function (milestone) {
               return res.json(200, {milestone: milestone});

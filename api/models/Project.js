@@ -77,7 +77,7 @@ module.exports = {
 
   },
 
-  isDone: function(project){
+  isDone: function(project) {
     return (project.finishedDate) ? true : false;
   }
 };

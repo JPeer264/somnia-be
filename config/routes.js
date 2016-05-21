@@ -33,20 +33,20 @@ module.exports.routes = {
   ***************************************************************************/
 
   //Auth
-  'POST /api/register'        : 'AuthController.register',
-  'POST /api/login'           : 'AuthController.login',
+  'POST /api/register'              : 'AuthController.register',
+  'POST /api/login'                 : 'AuthController.login',
 
   //Project
-  'POST /api/project'         : 'ProjectController.create',
-  'PUT /api/project/:id'      : 'ProjectController.update',
-  'DELETE /api/project/:id'   : 'ProjectController.delete',
-  'GET /api/project/:id'      : 'ProjectController.get',
+  'POST /api/project'               : 'ProjectController.create',
+  'PUT /api/project/:id'            : 'ProjectController.update',
+  'DELETE /api/project/:id'         : 'ProjectController.delete',
+  'GET /api/project/:id'            : 'ProjectController.get',
 
   //Milestones
-  'POST /api/milestones/:id'  : 'MilestoneController.create',
-  'PUT /api/milestones/:id'   : 'MilestoneController.update',
-  'DELETE /api/milestones/:id': 'MilestoneController.delete',
-  'GET /api/milestones/:id'   : 'MilestoneController.get',
+  'POST /api/project/:id/milestone' : 'MilestoneController.create',
+  'PUT /api/milestone/:id'          : 'MilestoneController.update',
+  'DELETE /api/milestone/:id'       : 'MilestoneController.delete',
+  'GET /api/milestone/:id'          : 'MilestoneController.get',
 
   /***************************************************************************
   *                                                                          *

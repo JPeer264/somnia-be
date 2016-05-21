@@ -72,7 +72,7 @@ module.exports = {
     cb();
   },
 
-  isDone: function(project){
+  isDone: function(project) {
     return (project.finishedDate) ? true : false;
   }
 };

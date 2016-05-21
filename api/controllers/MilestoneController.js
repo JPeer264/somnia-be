@@ -96,6 +96,7 @@ module.exports = {
       var id = req.param('id');
 
       Milestone.findOne({id: id})
+        .populate('steps')
         .then(function(milestone){
           //todo: populate with steps
           milestone.done = Milestone.milestoneDone(milestone);

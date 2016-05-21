@@ -160,7 +160,7 @@ token: [token]
 `Request Type: POST`
 > /api/project/:projectId/milestone
 
-Create a new Milestone for the currently used project (Identfied with the third URL-Path-Parameter)
+Create a new Milestone for the currently used project
 
 #### requirement
 ```
@@ -207,9 +207,9 @@ get milestone from id
 
 ### update
 `Request Type: PUT`
-> /api/project/:projectId/milestone/:id
+> /api/milestone/:id
 
-updates the milestone by id, project is here for checking if the user is the owner and allowed to change.
+updates the milestone by id
 
 #### requirement
 only requires fields to update
@@ -237,7 +237,7 @@ token: [token]
 
 ### delete
 `Request Type: DELETE`
-> /api/project/:projectId/milestone/:id
+> /api/milestone/:id
 
 #### requirement
 ```
@@ -248,5 +248,94 @@ token: [token]
 ```
 {
   "msg": "Milestone successfully destroyed"
+}
+```
+
+## Steps
+### create
+`Request Type: POST`
+> /api/milestone/:milestoneId/step
+
+Create a new Step for the currently used Milestone
+
+#### requirement
+```
+title: 'My first Step',
+token: [token]
+```
+
+#### returns
+```
+{
+  "step": {
+    "title": "My first Step",
+    "milestone": "5740523cc8e2f0e9c77dd427",
+    "createdAt": "2016-05-21T12:48:16.105Z",
+    "updatedAt": "2016-05-21T12:48:16.105Z",
+    "id": "57405910c8d4d4a91ba778a0"
+  }
+}
+```
+
+### get
+`Request Type: GET`
+> /api/milestone/:id
+
+get milestone from id
+
+#### returns
+```
+{
+  "step": {
+    "milestone": "5740523cc8e2f0e9c77dd427",
+    "title": "changed",
+    "createdAt": "2016-05-21T12:48:16.105Z",
+    "updatedAt": "2016-05-21T12:49:50.034Z",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3NDAyYWJlNmM5NjViZWVjNTdiMTY1NCIsImlhdCI6MTQ2MzgzNDg2OSwiZXhwIjoxNDYzODQ1NjY5fQ.Rw7F_IvxC_64p1DvdrMu5nzRkEbq-ndRySDCwmVJOyc",
+    "id": "57405910c8d4d4a91ba778a0"
+  }
+}
+```
+
+### update
+`Request Type: PUT`
+> /api/step/:id
+
+updates the step by id
+
+#### requirement
+only requires fields to update
+```
+title: 'My updated Step',
+token: [token]
+```
+
+#### returns
+```
+{
+  "step": {
+    "title": "My updated Step",
+    "milestone": "5740523cc8e2f0e9c77dd427",
+    "createdAt": "2016-05-21T12:48:16.105Z",
+    "updatedAt": "2016-05-21T12:49:50.034Z",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3NDAyYWJlNmM5NjViZWVjNTdiMTY1NCIsImlhdCI6MTQ2MzgzNDg2OSwiZXhwIjoxNDYzODQ1NjY5fQ.Rw7F_IvxC_64p1DvdrMu5nzRkEbq-ndRySDCwmVJOyc",
+    "id": "57405910c8d4d4a91ba778a0"
+  }
+}
+```
+
+### delete
+`Request Type: DELETE`
+> /api/step/:id
+
+#### requirement
+```
+token: [token]
+```
+
+#### returns
+```
+{
+  "msg": "Step successfully destroyed"
 }
 ```

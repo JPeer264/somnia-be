@@ -84,6 +84,24 @@ get project from id
 ```
 {
   "project": {
+    "milestones": [
+          {
+            "title": "My First Milestone",
+            "dueDate": "2035-05-26T00:00:00.000Z",
+            "project": "57403c45b3833cc825ea756f",
+            "createdAt": "2016-05-21T10:48:48.643Z",
+            "updatedAt": "2016-05-21T10:48:48.643Z",
+            "id": "57403d10b4dcdca7263b20e1"
+          },
+          {
+            "title": "My Second Milestone",
+            "dueDate": "2035-05-26T00:00:00.000Z",
+            "project": "57403c45b3833cc825ea756f",
+            "createdAt": "2016-05-21T10:48:52.012Z",
+            "updatedAt": "2016-05-21T10:48:52.012Z",
+            "id": "57403d14b4dcdca7263b20e2"
+          }
+        ],
     "owner": "573f9eb09e2c67bbe47feb87",
     "title": "new new title",
     "dueDate": "2003-09-17T00:00:00.000Z",

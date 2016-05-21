@@ -24,7 +24,7 @@ module.exports = {
     },
     milestones:{
       collection: 'milestone',
-      via: 'owner'
+      via: 'project'
     },
     owner:{
       model: 'User'
@@ -48,8 +48,27 @@ module.exports = {
         cb(err, null);
     });
 
-  }
+  },
 
   //todo: create beforeDelete Hook to delete all milestones
+  beforeDestroy: function(criteria, cb){
+
+    Project.find(criteria)
+      .populate('milestones')
+      .then(function(projects){
+        projects.forEach(function(project){
+          project.milestones.forEach(function(milestone){
+            Milestone.destroy({id: milestone.id})
+              .then(function(){});
+          });
+        });
+      })
+      .fail(function(err){
+        console.log('Error while deleting project:');
+        console.log(err);
+      });
+
+    cb();
+  }
 };
 

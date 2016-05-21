@@ -23,7 +23,7 @@ module.exports = {
       collection: 'step',
       via: 'milestone'
     },
-    owner:{
+    project:{
       model: 'Project'
     }
   },

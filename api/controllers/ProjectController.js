@@ -91,6 +91,7 @@ module.exports = {
     var id = req.param('id');
 
     Project.findOne({id: id})
+      .populate('milestones')
       .then(function(project){
         //todo: populate with milestones and steps
 

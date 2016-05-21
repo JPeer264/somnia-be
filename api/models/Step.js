@@ -8,7 +8,6 @@
 module.exports = {
 
   attributes: {
-    attributes: {
       title:{
         type: 'string',
         required: true
@@ -23,7 +22,6 @@ module.exports = {
       milestone:{
         model: 'Milestone'
       }
-    }
   }
 };
 

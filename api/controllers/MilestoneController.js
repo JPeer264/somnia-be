@@ -45,7 +45,6 @@ module.exports = {
 
   update: function (req, res) {
     var milestoneId = req.param('id'),
-        projectId   = req.param('projectId'),
         userId      = req.token.id,
         body        = req.allParams();
 
@@ -53,7 +52,7 @@ module.exports = {
       body.dueDate = sails.moment(parseInt(body.dueDate)).format('YYYY-MM-DD');
     }
 
-    Project.checkOwnership(userId, projectId, function (err, isOwner) {
+    Milestone.checkOwnership(userId, milestoneId, function (err, isOwner) {
       if (err) return res.negotiate(err);
 
       if (isOwner) {
@@ -74,10 +73,9 @@ module.exports = {
 
   delete: function (req, res) {
     var milestoneId = req.param('id'),
-        projectId   = req.param('projectId'),
         userId = req.token.id;
 
-      Project.checkOwnership(userId, projectId, function (err, isOwner) {
+      Milestone.checkOwnership(userId, milestoneId, function (err, isOwner) {
         if (err) return res.negotiate(err);
 
         if (isOwner) {

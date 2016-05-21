@@ -35,6 +35,10 @@ module.exports.policies = {
 
   'ProjectController': {
     'get': true
+  },
+
+  'MilestoneController': {
+    'get': true
   }
 
   /***************************************************************************

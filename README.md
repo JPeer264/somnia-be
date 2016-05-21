@@ -110,6 +110,7 @@ password: 'mySuperPassword'
 ```
 
 ## User
+###delete
 `Request Type: DELETE`
 > /api/user/:id
 
@@ -124,6 +125,98 @@ token: [token]
 ```
 {
   "msg": "User with id: [token] successfully destroyed!"
+}
+```
+
+###getuser
+`Request Type: POST`
+> /api/getUser
+
+returns the user who includes the newest project with all milestones and all steps
+
+#### requirement
+```
+token: [token]
+```
+
+#### returns
+```
+{
+  "user": {
+    "projects": [
+      {
+        "title": "My First Project",
+        "dueDate": "2016-05-21T00:00:00.000Z",
+        "owner": "5740963685fa794d1dd09b06",
+        "createdAt": "2016-05-21T17:10:08.610Z",
+        "updatedAt": "2016-05-21T17:10:08.610Z",
+        "id": "5740967085fa794d1dd09b07"
+      }
+    ],
+    "email": "kathi@example.com",
+    "createdAt": "2016-05-21T17:09:10.699Z",
+    "updatedAt": "2016-05-21T17:09:10.699Z",
+    "id": "5740963685fa794d1dd09b06",
+    "project": {
+      "milestones": [
+        {
+          "title": "My First Milestone",
+          "dueDate": "2003-09-17T00:00:00.000Z",
+          "project": "5740967085fa794d1dd09b07",
+          "createdAt": "2016-05-21T17:10:56.270Z",
+          "updatedAt": "2016-05-21T17:10:56.270Z",
+          "id": "574096a085fa794d1dd09b08",
+          "step": [
+            {
+              "title": "My first Step",
+              "milestone": "574096a085fa794d1dd09b08",
+              "createdAt": "2016-05-21T17:14:34.712Z",
+              "updatedAt": "2016-05-21T17:14:34.712Z",
+              "id": "5740977a85fa794d1dd09b09"
+            },
+            {
+              "title": "My second Step",
+              "milestone": "574096a085fa794d1dd09b08",
+              "createdAt": "2016-05-21T17:30:41.888Z",
+              "updatedAt": "2016-05-21T17:30:41.888Z",
+              "id": "57409b417b0aac7d1de7b65a"
+            },
+            {
+              "title": "My third Step",
+              "milestone": "574096a085fa794d1dd09b08",
+              "createdAt": "2016-05-21T17:30:45.585Z",
+              "updatedAt": "2016-05-21T17:30:45.585Z",
+              "id": "57409b457b0aac7d1de7b65b"
+            }
+          ]
+        },
+        {
+          "title": "My Second Milestone",
+          "dueDate": "2003-09-17T00:00:00.000Z",
+          "project": "5740967085fa794d1dd09b07",
+          "createdAt": "2016-05-21T17:32:54.386Z",
+          "updatedAt": "2016-05-21T17:32:54.386Z",
+          "id": "57409bc6ce26ae851d51aefb",
+          "step": [
+            {
+              "title": "My first Step",
+              "milestone": "57409bc6ce26ae851d51aefb",
+              "createdAt": "2016-05-21T17:33:17.678Z",
+              "updatedAt": "2016-05-21T17:33:17.678Z",
+              "id": "57409bddce26ae851d51aefc"
+            }
+          ]
+        }
+      ],
+      "owner": "5740963685fa794d1dd09b06",
+      "title": "My First Project",
+      "dueDate": "2016-05-21T00:00:00.000Z",
+      "createdAt": "2016-05-21T17:10:08.610Z",
+      "updatedAt": "2016-05-21T17:10:08.610Z",
+      "id": "5740967085fa794d1dd09b07",
+      "done": false
+    }
+  }
 }
 ```
 

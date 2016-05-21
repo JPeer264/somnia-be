@@ -10,24 +10,31 @@ module.exports = {
   schema: true,
 
   attributes: {
-    title:{
-      type: 'string',
-      required: true
-    },
+      title:{
+        type: 'string',
+        required: true
+      },
+      milestone:{
+        model: 'Milestone'
+      }
+  },
 
-    dueDate:{
-      type: 'date',
-      required: true
-    },
+  checkOwnership: function (userId, stepId, cb) {
 
-    finishedDate:{
-      type: 'date'
-    },
-
-    milestone:{
-      model: 'Milestone'
-    }
-
+    Step.findOne({id: stepId})
+      .then(function (step) {
+        if(!step) cb(null,false);
+        else{
+          Milestone.checkOwnership(userId, step.milestone, function (err, isOwner) {
+            if(err) cb(err,null);
+            else if(isOwner){
+              cb(null,true);
+            }else{
+              cb(null,false);
+            }
+          })
+        }
+      })
   }
 };
 

@@ -57,18 +57,44 @@ module.exports = {
       }else{
         return res.json(401, {err:'You are not authorized to update this project'});
       }
-
-
     });
-
-
   },
 
   delete: function (req,res) {
 
+    var projectId = req.param('id'),
+        userId    = req.token.id;
+
+    Project.checkOwnership(userId, projectId, function(err, isOwner){
+      if(err) return res.negotiate(err);
+
+      if(isOwner){
+        Project.destroy({id: projectId})
+          .then(function(){
+            return res.json(200, {msg: 'Project successfully destroyed'});
+          })
+          .fail(function(err){
+            return res.negotiate(err);
+          });
+      }else{
+        return res.json(401, {err:'You are not authorized to update this project'});
+      }
+    });
+
   },
 
   get: function (req,res) {
+
+    var id = req.param('id');
+
+    Project.findOne({id: id})
+      .then(function(project){
+        //todo: populate with milestones and steps
+        return res.json(200, {project: project});
+      })
+      .fail(function(err){
+        return res.negotiate(err);
+      });
 
   }
 

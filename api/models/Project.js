@@ -33,7 +33,6 @@ module.exports = {
 
   },
 
-
   checkOwnership: function(userId, projectId, cb){
 
     Project.findOne({
@@ -49,7 +48,8 @@ module.exports = {
         cb(err, null);
     });
 
-
   }
+
+  //todo: create beforeDelete Hook to delete all milestones
 };
 

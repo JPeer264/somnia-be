@@ -34,6 +34,8 @@ module.exports = {
     try {
       var user = JSON.parse(req.param('user'));
 
+      console.log(user);
+
       if(user.email){
 
         User.create({email: user.email})

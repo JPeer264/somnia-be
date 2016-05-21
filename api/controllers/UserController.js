@@ -9,22 +9,21 @@ module.exports = {
 
   getUser: function (req, res) {
     var userId = req.token.id;
-    console.log(userId);
 
     User.findOne({id: userId})
       .populate('projects')
       .then(function (user) {
-        console.log(userId);
+        //console.log(userId);
         user.project = user.projects.filter(function(project){
           return !project.finishedDate;
         })[0];
-        console.log(user);
+        //console.log(user);
         user.project = Project.getProject(user.project.id, function (err, project) {
-          console.log(project);
+          //console.log(project);
           if(err) return res.negotiate(err);
           if(project){
             user.project = project;
-            console.log(user);
+            //console.log(user);
             return res.json(200,{user:user});
           }else{
             return res.json(400,{msg:'error occured'});

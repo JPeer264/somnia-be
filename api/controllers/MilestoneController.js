@@ -58,7 +58,6 @@ module.exports = {
       if (isOwner) {
         Milestone.update({id: milestoneId}, body)
           .then(function (milestone) {
-            console.log(milestone);
             return res.json(200, {milestone: milestone[0]});
           })
           .fail(function (err) {

@@ -49,7 +49,7 @@ module.exports = {
       if(isOwner){
         Project.update({id: projectId}, body)
           .then(function(project){
-            return res.json(200, {project: project});
+            return res.json(200, {project: project[0]});
           })
           .fail(function(err){
             return res.negotiate(err);
@@ -90,6 +90,9 @@ module.exports = {
     Project.findOne({id: id})
       .then(function(project){
         //todo: populate with milestones and steps
+
+
+
         return res.json(200, {project: project});
       })
       .fail(function(err){

@@ -33,13 +33,16 @@ module.exports.routes = {
   ***************************************************************************/
 
   //todo: getUser with token
-  
+
   //Seamless Register
-  'POST /api/registerAll'                         : 'AuthController.registerAll',
+  'POST /api/registerall'                   : 'AuthController.registerAll',
 
   //Auth
   'POST /api/register'                      : 'AuthController.register',
   'POST /api/login'                         : 'AuthController.login',
+
+  //User
+  'DELETE /api/user/:id'                    : 'UserController.delete',
 
   //Project
   'POST /api/project'                       : 'ProjectController.create',
@@ -53,7 +56,7 @@ module.exports.routes = {
   'DELETE /api/milestone/:id'               : 'MilestoneController.delete',
   'GET /api/milestone/:id'                  : 'MilestoneController.get',
 
-  //Milestones
+  //Steps
   'POST /api/milestone/:milestoneId/step'   : 'StepController.create',
   'PUT /api/step/:id'                       : 'StepController.update',
   'DELETE /api/step/:id'                    : 'StepController.delete',

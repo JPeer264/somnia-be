@@ -52,7 +52,9 @@ module.exports = {
 
   },
 
-  beforeDestroy: function(criteria, cb){
+  beforeDestroy: function(criteria, projectCb){
+
+    console.log('Project destroying');
 
     Project.find(criteria)
       .populate('milestones')
@@ -60,16 +62,19 @@ module.exports = {
         projects.forEach(function(project){
           project.milestones.forEach(function(milestone){
             Milestone.destroy({id: milestone.id})
-              .then(function(){});
+              .then(function(){
+              });
           });
         });
+      })
+      .then(function(){
+        projectCb();
       })
       .fail(function(err){
         console.log('Error while deleting project:');
         console.log(err);
       });
 
-    cb();
   },
 
   isDone: function(project) {

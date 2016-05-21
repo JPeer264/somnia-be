@@ -19,6 +19,10 @@ module.exports = {
     finishedDate:{
       type: 'date'
     },
+    steps:{
+      collection: 'step',
+      via: 'milestone'
+    },
     owner:{
       model: 'Project'
     }

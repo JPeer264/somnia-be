@@ -33,8 +33,14 @@ module.exports.routes = {
   ***************************************************************************/
 
   //Auth
-  'POST /api/register'  : 'AuthController.register',
-  'POST /api/login'     : 'AuthController.login'
+  'POST /api/register'       : 'AuthController.register',
+  'POST /api/login'          : 'AuthController.login',
+
+  //Project
+  'POST /api/project'        : 'ProjectController.create',
+  'PUT /api/project/:id'     : 'ProjectController.update',
+  'DELETE /api/project/:id'  : 'ProjectController.delete',
+  'GET /api/project/:id'     : 'ProjectController.get',
 
   /***************************************************************************
   *                                                                          *

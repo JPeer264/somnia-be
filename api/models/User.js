@@ -1,29 +1,36 @@
 /**
  * User.js
  *
- * @description :: 
+ * @description ::
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
 var bcrypt = require('bcrypt-nodejs'),
-    EmailService = require('../services/EmailService');
+  EmailService = require('../services/EmailService');
 
 module.exports = {
 
+  schema: true,
+
   attributes: {
 
-    'email':{
+    email:{
       type: 'email',
       unique: true,
       required: true
     },
 
-    'password':{
+    password:{
       type: 'string',
       required: true,
       defaultsTo: function(){
         return User.generatePassword();
       }
+    },
+
+    projects:{
+      collection: 'project',
+      via: 'owner'
     },
 
     toJSON: function(){
@@ -35,7 +42,7 @@ module.exports = {
   },
 
   beforeCreate: function(user, cb){
-    
+
     EmailService.sendPasswordEmail(user.email, user.password);
 
     bcrypt.genSalt(10, function(err, salt){

@@ -136,3 +136,99 @@ token: [token]
   "msg": "Project successfully destroyed"
 }
 ```
+
+## Milestones
+### create
+`Request Type: POST`
+> /api/project/:projectId/milestone
+
+Create a new Milestone for the currently used project (Identfied with the third URL-Path-Parameter)
+
+#### requirement
+```
+title: 'My First Milestone',
+dueDate: 1463790502134,
+token: [token]
+```
+
+#### returns
+```
+{
+  "milestone": {
+    "title": "My First Milestone",
+    "dueDate": "2003-09-17T00:00:00.000Z",
+    "owner": "57402abe6c965beec57b1654",
+    "createdAt": "2016-05-21T10:46:45.501Z",
+    "updatedAt": "2016-05-21T10:46:45.501Z",
+    "id": "57403c95eb05dcfec62b55a3"
+  }
+}
+```
+
+### get
+`Request Type: GET`
+> /api/milestone/:id
+
+get milestone from id
+
+#### returns
+```
+{
+  "milestone": {
+    "owner": "57402abe6c965beec57b1654",
+    "title": "My first change",
+    "dueDate": "2003-09-17T00:00:00.000Z",
+    "createdAt": "2016-05-21T10:36:43.596Z",
+    "updatedAt": "2016-05-21T10:36:50.311Z",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3NDAyYWJlNmM5NjViZWVjNTdiMTY1NCIsImlhdCI6MTQ2MzgyMzA3MywiZXhwIjoxNDYzODMzODczfQ.B2yEy_765ksrasZADTDtWMuCvluHF2z1WSyvBpRU_qU",
+    "projectId": "57402aed6c965beec57b1655",
+    "id": "57403a3b684ccebdc68b94e5"
+  }
+}
+```
+
+### update
+`Request Type: PUT`
+> /api/project/:projectId/milestone/:id
+
+updates the milestone by id, project is here for checking if the user is the owner and allowed to change.
+
+#### requirement
+only requires fields to update
+```
+title: 'My updated Milestone',
+dueDate: 1003790502134,
+token: [token]
+```
+
+#### returns
+```
+{
+  "milestone": {
+    "title": "My updated change",
+    "dueDate": "2003-09-17T00:00:00.000Z",
+    "owner": "57402abe6c965beec57b1654",
+    "createdAt": "2016-05-21T10:36:43.596Z",
+    "updatedAt": "2016-05-21T10:52:20.201Z",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3NDAyYWJlNmM5NjViZWVjNTdiMTY1NCIsImlhdCI6MTQ2MzgyMzA3MywiZXhwIjoxNDYzODMzODczfQ.B2yEy_765ksrasZADTDtWMuCvluHF2z1WSyvBpRU_qU",
+    "projectId": "57402aed6c965beec57b1655",
+    "id": "57403a3b684ccebdc68b94e5"
+  }
+}
+```
+
+### delete
+`Request Type: DELETE`
+> /api/project/:projectId/milestone/:id
+
+#### requirement
+```
+token: [token]
+```
+
+#### returns
+```
+{
+  "msg": "Milestone successfully destroyed"
+}
+```

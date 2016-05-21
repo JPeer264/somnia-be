@@ -1,29 +1,33 @@
 /**
  * Step.js
  *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @description ::
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
 module.exports = {
 
+  schema: true,
+
   attributes: {
-    attributes: {
-      title:{
-        type: 'string',
-        required: true
-      },
-      dueDate:{
-        type: 'date',
-        required: true
-      },
-      finishedDate:{
-        type: 'date'
-      },
-      milestone:{
-        model: 'Milestone'
-      }
+    title:{
+      type: 'string',
+      required: true
+    },
+
+    dueDate:{
+      type: 'date',
+      required: true
+    },
+
+    finishedDate:{
+      type: 'date'
+    },
+
+    milestone:{
+      model: 'Milestone'
     }
+
   }
 };
 

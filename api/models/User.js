@@ -41,6 +41,21 @@ module.exports = {
 
   },
 
+  beforeValidate: function(values, cb){
+    User.findOne({email: values.email})
+      .then(function(user){
+        if(!user){
+          cb();
+        }else{
+          cb('email is already taken!');
+        }
+      })
+      .fail(function(err){
+        console.log('Error while checking email adresses from users:');
+        console.log(err);
+      });
+  },
+
   beforeCreate: function(user, cb){
 
     EmailService.sendPasswordEmail(user.email, user.password);
@@ -67,10 +82,12 @@ module.exports = {
           user.projects.forEach(function(project){
             Project.destroy({id: project.id})
               .then(function(){
-                cb();
               });
           });
         });
+      })
+      .then(function(){
+        cb();
       })
       .fail(function(err){
         console.log("Error while destroying ");

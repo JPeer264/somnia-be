@@ -1,14 +1,14 @@
 /**
  * Milestone.js
  *
- * @description :: 
+ * @description ::
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
 module.exports = {
 
   schema: true,
-  
+
   attributes: {
     title:{
       type: 'string',
@@ -27,7 +27,33 @@ module.exports = {
     },
     project:{
       model: 'Project'
+    },
+
+    toJSON: function(){
+      var obj = this.toObject();
+      obj.done = Milestone.milestoneDone(this);
+      return obj;
     }
+  },
+
+  beforeDestroy: function(criteria, cb){
+    Milestone.find(criteria)
+      .populate('steps')
+      .then(function(milestones){
+        milestones.forEach(function(milestone){
+          milestone.steps.forEach(function(step){
+            Step.destroy({id: step.id})
+              .then(function(){})
+          });
+        });
+      })
+      .then(function(){
+        cb();
+      })
+      .fail(function(err){
+        console.log('Error while destroying Milestones: ');
+        console.log(err);
+      });
   },
 
   milestoneDone: function(milestone){

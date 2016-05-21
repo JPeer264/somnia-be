@@ -98,7 +98,6 @@ module.exports = {
       Milestone.findOne({id: id})
         .populate('steps')
         .then(function(milestone){
-          //todo: populate with steps
           milestone.done = Milestone.milestoneDone(milestone);
           return res.json(200, {milestone: milestone});
         })

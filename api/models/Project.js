@@ -79,6 +79,35 @@ module.exports = {
 
   isDone: function(project) {
     return (project.finishedDate) ? true : false;
+  },
+
+  getProject: function(projectId, cb){
+    var milestones = [];
+
+    Project.findOne({id: projectId})
+      .populate('milestones')
+      .then(function (project) {
+        project.milestones.forEach(function (milestone) {
+          milestones.push(milestone.id);
+        });
+        return [project, milestones];
+      })
+      .spread(function (project, milestones) {
+        Step.find({milestone: milestones})
+          .then(function (steps) {
+            project.milestones.forEach(function(milestone){
+
+              milestone.step = steps.filter(function(step){
+                return step.milestone == milestone.id;
+              });
+            });
+            project.done = Project.isDone(project);
+            cb(null, project);
+          })
+      })
+      .fail(function (err) {
+        cb(err,null);
+      });
   }
 };
 

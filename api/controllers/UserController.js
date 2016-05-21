@@ -7,12 +7,36 @@
 
 module.exports = {
 
+  getUser: function (req, res) {
+    var userId = req.token.id;
+
+    User.findOne({id: userId})
+      .populate('projects')
+      .then(function (user) {
+        user.project = user.projects.filter(function(project){
+          return !project.finishedDate;
+        })[0];
+        user.project = Project.getProject(user.project.id, function (err, project) {
+          console.log(project);
+          if(err) return res.negotiate(err);
+          if(project){
+            user.project = project;
+            console.log(user);
+            return res.json(200,{user:user});
+          }else{
+            return res.json(400,{msg:'error occured'});
+          }
+        });
+      })
+
+  },
+
   delete: function(req, res){
 
     var id = req.param('id');
 
     if(id == req.token.id){
-      
+
       User.destroy({id: id})
         .then(function(){
           return res.json(200, {msg: "User with id: " + id + " successfully destroyed!"});

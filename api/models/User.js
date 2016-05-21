@@ -58,6 +58,26 @@ module.exports = {
     });
   },
 
+  beforeDestroy: function(criteria, cb){
+    console.log('User destroying');
+    User.find(criteria)
+      .populate('projects')
+      .then(function(users){
+        users.forEach(function(user){
+          user.projects.forEach(function(project){
+            Project.destroy({id: project.id})
+              .then(function(){
+                cb();
+              });
+          });
+        });
+      })
+      .fail(function(err){
+        console.log("Error while destroying ");
+        console.log(err);
+      });
+  },
+
   comparePassword: function(password, user, cb){
     bcrypt.compare(password, user.password, function(err, match){
       if(err){

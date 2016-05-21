@@ -109,6 +109,24 @@ password: 'mySuperPassword'
 }
 ```
 
+## User
+`Request Type: DELETE`
+> /api/user/:id
+
+deletes user and all associated data (projects, milestones, steps)
+
+#### requirement
+```
+token: [token]
+```
+
+#### returns
+```
+{
+  "msg": "User with id: [token] successfully destroyed!"
+}
+```
+
 ## Project
 ### create
 `Request Type: POST`

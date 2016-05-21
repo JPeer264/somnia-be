@@ -31,6 +31,25 @@ module.exports = {
     }
 
 
+  },
+
+
+  checkOwnership: function(userId, projectId, cb){
+
+    Project.findOne({
+      id: projectId,
+      owner: userId
+    }).then(function(project){
+      if(!project){
+        cb(null, false);
+      }else{
+        cb(null, true);
+      }
+    }).fail(function(err){
+        cb(err, null);
+    });
+
+
   }
 };
 

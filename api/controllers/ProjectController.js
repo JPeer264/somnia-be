@@ -10,9 +10,9 @@ module.exports = {
 
   create: function (req,res) {
     var title   = req.param('title'),
-        dueDate = req.param('dueDate');
+        dueDate = parseInt(req.param('dueDate'));
 
-    dueDate = sails.moment(dueDate).toISOString();
+    dueDate = sails.moment(dueDate).format('YYYY-MM-DD');
 
     if(title && dueDate){
       Project.create({
@@ -35,6 +35,11 @@ module.exports = {
 
   update: function (req,res) {
 
+    var id = param('id');
+    
+    
+    
+    
   },
 
   delete: function (req,res) {

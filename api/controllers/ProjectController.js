@@ -39,24 +39,7 @@ module.exports = {
         userId    = req.token.id,
         body      = req.body;
 
-    if(body.dueDate){
-      body.dueDate = sails.moment(parseInt(body.dueDate)).format('YYYY-MM-DD');
-    }
-
-    Project.checkOwnership(userId, projectId, function(err, isOwner){
-      if(err) return res.negotiate(err);
-
-      if(isOwner){
-        Project.update({id: projectId}, body)
-          .then(function(project){
-            return res.json(200, {project: project});
-          })
-          .fail(function(err){
-            return res.negotiate(err);
-          });
-      }else{
-        return res.json(401, {err:'You are not authorized to update this project'});
-      }
+    
 
 
     });

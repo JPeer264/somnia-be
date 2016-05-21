@@ -15,11 +15,11 @@ module.exports = {
 
     dueDate = sails.moment(dueDate).format('YYYY-MM-DD');
 
-    Project.checkOwnership(userId, projectId, function(err, match){
+    Project.checkOwnership(userId, projectId, function(err, isOwner){
       if(err){
         return res.negotiate(err);
       }
-      if(!match){
+      if(!isOwner){
         return res.json(401, {err: 'You are not authorized to create milestones for this project!'})
       }else{
         if(title && dueDate){
@@ -47,10 +47,29 @@ module.exports = {
 
   update: function (req,res) {
     var milestoneId = req.param('id'),
-        title       = req.param('title'),
-        dueDate     = req.param('dueDate'),
-      
-        
+        userId      = req.token.id,
+        body        = req.allParams();
+
+    if(body.dueDate){
+      body.dueDate = sails.moment(parseInt(body.dueDate)).format('YYYY-MM-DD');
+    }
+
+    Project.checkOwnership(userId, projectId, function(err, isOwner){
+        if(err) return res.negotiate(err);
+
+        if(isOwner){
+          Milestone.update({id: milestoneId}, body)
+            .then(function(milestone){
+              return res.json(200, {milestone: milestone});
+            })
+            .fail(function(err){
+              return res.negotiate(err);
+            });
+        }else{
+          return res.json(401, {err:'You are not authorized to update this milestone'});
+        }
+
+
   },
 
   delete: function (req,res) {

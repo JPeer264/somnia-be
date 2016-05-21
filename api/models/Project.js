@@ -1,9 +1,11 @@
 /**
  * Project.js
  *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @description ::
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
+
+var TimeFormatService = require('../services/TimeFormatService');
 
 module.exports = {
 
@@ -50,7 +52,6 @@ module.exports = {
 
   },
 
-  //todo: create beforeDelete Hook to delete all milestones
   beforeDestroy: function(criteria, cb){
 
     Project.find(criteria)
@@ -69,6 +70,10 @@ module.exports = {
       });
 
     cb();
+  },
+
+  isDone: function(project){
+    return (project.finishedDate) ? true : false;
   }
 };
 

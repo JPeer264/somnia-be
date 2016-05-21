@@ -93,9 +93,9 @@ module.exports = {
     Project.findOne({id: id})
       .populate('milestones')
       .then(function(project){
-        //todo: populate with milestones and steps
+        //todo: populate with steps
 
-        project.done = (project.finishedDate) ? true : false;
+        project.done = Project.isDone(project);
 
         return res.json(200, {project: project});
       })

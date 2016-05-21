@@ -32,6 +32,11 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  //todo: getUser with token
+  
+  //Seamless Register
+  'POST /api/registerAll'                         : 'AuthController.registerAll',
+
   //Auth
   'POST /api/register'                      : 'AuthController.register',
   'POST /api/login'                         : 'AuthController.login',

@@ -5,7 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var JWTService = require('../services/JWTService');
+var JWTService = require('../services/JWTService'),
+    TimeFormatService = require('../services/TimeFormatService');
 
 module.exports = {
 
@@ -27,6 +28,61 @@ module.exports = {
       return res.json(400, {msg: 'Email required!'});
     }
 
+  },
+
+  registerAll: function(req, res){
+    try {
+      var user = JSON.parse(req.param('user'));
+
+      if(user.email){
+
+        User.create({email: user.email})
+          .then(function(newUser){
+            var project = user.project;
+            project.dueDate = TimeFormatService.toDateString(project.dueDate);
+
+            project.milestones.forEach(function(milestone){
+              milestone.dueDate = TimeFormatService.toDateString(milestone.dueDate);
+            });
+
+            project.owner = newUser.id;
+
+            Project.create(project)
+              .then(function(newProject){
+
+                Milestone.find({project: newProject.id})
+                  .then(function(milestones){
+                    return res.json(200, {
+                      user: newUser,
+                      project: newProject,
+                      milestones: milestones,
+                      token: JWTService.issue({id: newUser.id})
+                    });
+                  })
+                  .fail(function(err){
+                    return res.negotiate(err);
+                  });
+
+              })
+              .fail(function(err){
+                //delete User -> cascade delete
+                User.destroy({id: newUser.id})
+                  .then(function(){});
+                return res.negotiate(err);
+              });
+          })
+          .fail(function(err){
+            return res.negotiate(err);
+          });
+
+      }else{
+        return res.json(400, {msg: 'Email required!'});
+      }
+
+    }catch(err){
+      console.log('exception:');
+      console.error(err.message);
+    }
   },
 
   login: function(req, res){

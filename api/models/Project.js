@@ -30,9 +30,13 @@ module.exports = {
     },
     owner:{
       model: 'User'
+    },
+
+    toJSON: function(){
+      var obj = this.toObject();
+      obj.done = Project.isDone(this);
+      return obj;
     }
-
-
   },
 
   checkOwnership: function(userId, projectId, cb){

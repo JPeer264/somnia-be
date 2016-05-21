@@ -27,6 +27,12 @@ module.exports = {
     },
     project:{
       model: 'Project'
+    },
+
+    toJSON: function(){
+      var obj = this.toObject();
+      obj.done = Milestone.milestoneDone(this);
+      return obj;
     }
   },
 

@@ -23,6 +23,69 @@ email: 'example@example.com'
 }
 ```
 
+### registerAll
+`Request Type: POST`
+> /api/registerAll
+
+#### requirement
+```
+user: {
+	"email": "simon@example.com",
+
+	"project": {
+		"title": "My Life Goal",
+		"dueDate": 1063790502134,
+
+		"milestones": [{
+			"title": "My First MileStone",
+			"dueDate": 1063790502134
+		}, {
+			"title": "My Second MileStone",
+			"dueDate": 1063790002134
+		}]
+	}
+}
+```
+
+#### returns
+```
+{
+  "user": {
+    "email": "simon@example.com",
+    "createdAt": "2016-05-21T13:03:03.840Z",
+    "updatedAt": "2016-05-21T13:03:03.840Z",
+    "id": "57405c877d6fc015441d8a04"
+  },
+  "project": {
+    "title": "My Life Goal",
+    "dueDate": "2003-09-17T00:00:00.000Z",
+    "owner": "57405c877d6fc015441d8a04",
+    "createdAt": "2016-05-21T13:03:03.843Z",
+    "updatedAt": "2016-05-21T13:03:03.845Z",
+    "id": "57405c877d6fc015441d8a05"
+  },
+  "milestones": [
+    {
+      "project": "57405c877d6fc015441d8a05",
+      "title": "My First MileStone",
+      "dueDate": "2003-09-17T00:00:00.000Z",
+      "createdAt": "2016-05-21T13:03:03.850Z",
+      "updatedAt": "2016-05-21T13:03:03.850Z",
+      "id": "57405c877d6fc015441d8a06"
+    },
+    {
+      "project": "57405c877d6fc015441d8a05",
+      "title": "My Second MileStone",
+      "dueDate": "2003-09-17T00:00:00.000Z",
+      "createdAt": "2016-05-21T13:03:03.851Z",
+      "updatedAt": "2016-05-21T13:03:03.851Z",
+      "id": "57405c877d6fc015441d8a07"
+    }
+  ],
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3NDA1Yzg3N2Q2ZmMwMTU0NDFkOGEwNCIsImlhdCI6MTQ2MzgzNTc4MywiZXhwIjoxNDYzODQ2NTgzfQ.-CASaOIKn_DLxD9Eit-sPZ-hqhaZi2wQzQ-2oJeQvz8"
+}
+```
+
 ### login
 `Request Type: POST`
 > /api/login

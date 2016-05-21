@@ -360,9 +360,9 @@ token: [token]
 
 ### get
 `Request Type: GET`
-> /api/milestone/:id
+> /api/step/:id
 
-get milestone from id
+get step from id
 
 #### returns
 ```

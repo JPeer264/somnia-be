@@ -22,6 +22,10 @@ module.exports = {
     finishedDate:{
       type: 'date'
     },
+    milestones:{
+      collection: 'milestone',
+      via: 'owner'
+    },
     owner:{
       model: 'User'
     }

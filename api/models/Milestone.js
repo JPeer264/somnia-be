@@ -22,6 +22,10 @@ module.exports = {
     owner:{
       model: 'Project'
     }
+  },
+
+  milestoneDone: function(milestone){
+    return (milestone.finishedDate) ? true : false;
   }
 };
 

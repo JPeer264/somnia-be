@@ -100,6 +100,7 @@ module.exports = {
       Milestone.findOne({id: id})
         .then(function(milestone){
           //todo: populate with steps
+          milestone.done = Milestone.milestoneDone(milestone);
           return res.json(200, {milestone: milestone});
         })
         .fail(function(err){

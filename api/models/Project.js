@@ -91,6 +91,25 @@ module.exports = {
     Project.findOne({id: projectId})
       .populate('milestones')
       .then(function (project) {
+
+        var msDone = project.milestones.filter(function(ms){
+          return Milestone.milestoneDone(ms);
+        });
+
+        msDone = msDone.sort(function(a, b){
+          return a.finishedDate - b.finishedDate;
+        });
+
+        msOpen = project.milestones.filter(function(ms){
+          return !Milestone.milestoneDone(ms);
+        });
+
+        msOpen = msOpen.sort(function(a,b){
+          return a.dueDate - b.dueDate;
+        });
+
+        project.milestones = msDone.concat(msOpen);
+
         project.milestones.forEach(function (milestone) {
           milestones.push(milestone.id);
         });

@@ -62,7 +62,23 @@ module.exports = {
       if (isOwner) {
         Milestone.update({id: milestoneId}, body)
           .then(function (milestone) {
-            return res.json(200, {milestone: milestone[0]});
+
+            //check if updated milestone was "last" one to finish
+            Milestone.find({
+              project : milestone.project
+            }).then(function(milestones){
+              var open = milestones.filter(function(milestone){
+                return !milestone.finishedDate;
+              });
+              console.log(open);
+
+              if(!open){
+                return res.json(200, {milestone: milestone[0], last: true})
+              }else{
+                return res.json(200, {milestone: milestone[0], last: false});
+
+              }
+            });
           })
           .fail(function (err) {
             return res.negotiate(err);

@@ -50,7 +50,6 @@ module.exports = {
       if (isOwner) {
         Step.update({id: stepId}, body)
           .then(function (step) {
-            console.log(step);
             return res.json(200, {step: step[0]});
           })
           .fail(function (err) {

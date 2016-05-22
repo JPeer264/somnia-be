@@ -1,7 +1,17 @@
 module.exports={
-  
+
   toDateString: function(timestamp){
-    return sails.moment(parseInt(timestamp)).format('YYYY-MM-DD');
+    console.log("TimeFormatService:");
+
+    timestamp = parseInt(timestamp);
+
+    console.log(timestamp);
+    
+    
+    var result = sails.moment(timestamp).format('YYYY-MM-DD');
+    console.log(result);
+
+    return result;
   }
-  
+
 };

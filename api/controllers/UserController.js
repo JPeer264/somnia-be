@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var bcrypt = require('bcrypt-nodejs');
+
 module.exports = {
 
   getUser: function (req, res) {
@@ -52,6 +54,56 @@ module.exports = {
     }else{
       return res.json(401, {err: 'You are not authorized to delete this Profile'});
     }
+
+  },
+
+  changePassword: function (req,res) {
+
+    var id    = req.token.id,
+        newPw = req.param('newPw'),
+        oldPw = req.param('oldPw');
+
+    User.findOne({id:id})
+      .then(function (user) {
+        console.log(user);
+        User.comparePassword(oldPw,user,function (err,match) {
+          if(err) return res.negotiate(err);
+          if(match){
+
+            bcrypt.genSalt(10, function(err, salt){
+              bcrypt.hash(newPw, salt, null, function(err, hash){
+                if(err){
+                  console.log('Error while hashing user password');
+                  console.log(err);
+                }else{
+                  newPw = hash;
+
+                  User.update({id:id}, {password: newPw})
+                    .then(function(user){
+                        return res.json(200, {msg: 'Userpassword was changed successfully!'})
+                    })
+                    .fail(function (err) {
+                      return res.negotiate(err);
+                    });
+                }
+              });
+            });
+
+
+          }
+          else{
+            console.log('error');
+          }
+        });
+    })
+      .fail(function (err) {
+
+      });
+
+
+
+
+
 
   }
 

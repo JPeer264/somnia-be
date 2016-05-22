@@ -220,6 +220,26 @@ token: [token]
 }
 ```
 
+###change Password
+`Request Type: PUT`
+> /api/user
+
+updates userpassword
+
+#### requirement
+```
+token: [token]
+oldPw: 'oldPassword'
+newPw: 'newPassword'
+```
+
+#### returns
+```
+{
+  "msg": "Userpassword was changed successfully!"
+}
+```
+
 ## Project
 ### create
 `Request Type: POST`

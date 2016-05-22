@@ -52,6 +52,10 @@ module.exports = {
       body.dueDate = sails.moment(parseInt(body.dueDate)).format('YYYY-MM-DD');
     }
 
+    if(body.finishedDate){
+      body.finishedDate = sails.moment(parseInt(body.finishedDate)).format('YYYY-MM-DD');
+    }
+
     Milestone.checkOwnership(userId, milestoneId, function (err, isOwner) {
       if (err) return res.negotiate(err);
 

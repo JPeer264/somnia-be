@@ -34,7 +34,8 @@ module.exports.policies = {
   },
 
   'ProjectController': {
-    'get': true
+    'get': true,
+    'getLatestProjects': true
   },
 
   'MilestoneController': {

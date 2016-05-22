@@ -111,6 +111,17 @@ module.exports = {
         return res.negotiate(err);
       });
 
+  },
+
+  getLatestProjects: function (req, res) {
+    Project.find({limit: 6, sort: 'createdAt ASC'})
+      .populate('milestones')
+      .then(function (projects) {
+        return res.json(projects);
+        })
+      .fail(function (err) {
+        return res.negotiate(err);
+      })
   }
 
 };

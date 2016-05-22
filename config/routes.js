@@ -51,6 +51,7 @@ module.exports.routes = {
   'PUT /api/project/:id'                    : 'ProjectController.update',
   'DELETE /api/project/:id'                 : 'ProjectController.delete',
   'GET /api/project/:id'                    : 'ProjectController.get',
+  'GET /api/projects'                       : 'ProjectController.getLatestProjects',
 
   //Milestones
   'POST /api/project/:projectId/milestone'  : 'MilestoneController.create',

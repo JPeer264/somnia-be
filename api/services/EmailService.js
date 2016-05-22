@@ -9,7 +9,8 @@ module.exports={
       },
       {
         to: email,
-        subject: "Welcome to Somnia"
+        subject: "Welcome to Somnia",
+        from: 'somnia.noreply@gmail.com'
       },
       function(err) {console.log(err || "It worked!");}
     )

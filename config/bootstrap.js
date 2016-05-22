@@ -13,7 +13,13 @@ module.exports.bootstrap = function(cb) {
 
 
   //todo: configure real email service
+  /*sails.config.email.auth.user = 'somnia.noreply@gmail.com';
+  sails.config.email.auth.pass = '!gmail#Somn1a';
+  sails.config.email.from = 'somnia@noreply.com';
+  sails.config.email.testMode = false;*/
   sails.config.email.templateDir = sails.config.appPath+'/views/email/';
+  
+  console.log(sails.config.email);
 
   sails.moment = require('moment');
 

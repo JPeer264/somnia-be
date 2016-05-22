@@ -98,12 +98,23 @@ module.exports = {
       .fail(function (err) {
 
       });
+  },
 
+  getSpecificuser: function (req,res) {
+    var userId = req.param('id');
 
-
-
-
-
+    User.findOne({id:userId})
+      .then(function (user) {
+        if(user){
+          return res.json(user.email);
+        }
+        else{
+          return res.json({msg:'User does not exist'});
+        }
+      })
+      .fail(function (err) {
+        return res.negotiate(err);
+      })
   }
 
 };

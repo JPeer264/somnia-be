@@ -44,6 +44,10 @@ module.exports.policies = {
 
   'StepController': {
     'get': true
+  },
+
+  'UserController': {
+    'getSpecificUser': true
   }
 
   /***************************************************************************

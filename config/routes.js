@@ -45,6 +45,7 @@ module.exports.routes = {
   //User
   'DELETE /api/user/:id'                    : 'UserController.delete',
   'PUT /api/user'                           : 'UserController.changePassword',
+  'GET /api/getspecificuser/:id'            : 'UserController.getSpecificUser',
 
   //Project
   'POST /api/project'                       : 'ProjectController.create',
